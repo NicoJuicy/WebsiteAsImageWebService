@@ -1,0 +1,13 @@
+{
+  "name": "website-as-image-web-service",
+  "version": "0.0.0",
+  "description": "WebsiteAsImageWebService",
+  "main": "server.js",
+  "author": {
+    "name": "NicoJuicy"
+  },
+  "dependencies": {
+    "express": "^3.10.3",
+    "phantom": "^4.0.0"
+  }
+}
