@@ -24,11 +24,24 @@ app.get('/thumb/:url', function (req, res) {
     // phantomjs screenshot
     var phantom = require('phantom');
 
+    var viewportSize;
+    if (req.query.width !== undefined && req.query.height !== undefined) {
+        viewportSize = {
+            width: req.query.width, height: req.query.height
+        };
+    } else {
+        viewportSize = {
+            width: 1280, height: 800
+        };
+    }
 
     //TODO: for performance improvements https://github.com/blockai/phantom-pool 
     phantom.create().then(function (ph) {
         ph.createPage().then(function (page) {
             page.open(req.params.url).then(function (status) {
+                
+                page.property('viewportSize',viewportSize);
+
                 var image_file_name = url_to_process.replace(/\W/g, '_') + ".png";
                 var image_path = public_dir + "/" + image_file_name;
 
