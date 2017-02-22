@@ -11,3 +11,6 @@
 
 #Example of screenshot
 ![Screenshot of Google](https://github.com/NicoJuicy/WebsiteAsImageWebService/raw/master/public/https___www_google_com.png)
+
+# Libraries
+ - c# (portable) https://github.com/NicoJuicy/WebsiteAsImageWebService.Api.Csharp
