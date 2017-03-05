@@ -15,12 +15,12 @@ app.get('/thumb/:url', function (req, res) {
 
     // get url to process
     var url_to_process = req.params.url;
-  
+
     if (url_to_process === undefined || url_to_process == '') {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end("404 Not Found");
     }
-    
+
     // phantomjs screenshot
     var phantom = require('phantom');
 
@@ -34,13 +34,18 @@ app.get('/thumb/:url', function (req, res) {
             width: 1280, height: 800
         };
     }
-
+    var clipRect = { left: 0, top: 0, width: 0, height: 0 };
+    if (req.query.frontOnly !== undefined) {
+        clipRect.width = viewportSize.width;
+        clipRect.height = viewportSize.height;
+    }
     //TODO: for performance improvements https://github.com/blockai/phantom-pool 
     phantom.create().then(function (ph) {
         ph.createPage().then(function (page) {
             page.open(req.params.url).then(function (status) {
                 
                 page.property('viewportSize',viewportSize);
+                page.property('clipRect', clipRect);
 
                 var image_file_name = url_to_process.replace(/\W/g, '_') + ".png";
                 var image_path = public_dir + "/" + image_file_name;
